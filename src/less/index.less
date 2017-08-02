@@ -3,9 +3,136 @@
   padding: 0px;
   margin: 0px;
 }
+html{
+  font-size: calc(100vh / 6);
+}
+body{
+  font-size: 14px;
+  font-family: Arial,Console,Verdana,Courier New;
+}
 ul,li{
   list-style: none;
 }
+a{
+  text-decoration: none;
+}
+.mainBox{
+  width:1100px;
+  margin: 0px auto;
+}
+.mainBox(){
+  width:1100px;
+  margin: 0px auto;
+}
 .index_body{
-  
+  .bodyBox{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .headerBox{
+    &{
+      height: 80px;
+      display: flex;
+      justify-content:space-between;
+      position: relative;
+    }
+    .logoImg{
+      margin-top:30px;
+    }
+    .navBox{
+      & {
+        display: flex;
+        font-size:14px;
+        margin-top:50px;
+      }
+      li{
+        &{
+          position: relative;
+          height: 20px;
+          line-height: 20px;
+        }
+        &:first-child{
+          img{
+            margin-top:2px;
+          }
+        }
+        &:not(:first-child){
+          margin-left:30px;
+        }
+        .up{
+          &{
+            width:0%;
+            transition:0.3s width;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: hidden;
+            color: #000;
+          }
+        }
+        &:hover,&.active{
+          .up{
+            width:100%;
+          }
+        }
+      }
+    }
+    .navArrow{
+      position: absolute;
+      bottom: -11px;
+      background:url("../images/menuIndicator.png") no-repeat;
+      left: 0px;
+      transform:translateX(30px);
+      width:21px;
+      height: 11px;
+      transition: 0.5s transform;
+      z-index: 1;
+    }
+  }
+  .contentBox{
+    &{
+      flex: 1;
+      overflow: hidden;
+      background-color: #005D8D;
+    }
+    .contentUl{
+      &{
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-0%);
+        transition: .5s transform;
+      }
+      .contentLi{
+        &{
+          flex: 1;
+          background-size:100% 100%;
+        }
+        &:nth-of-type(1){
+          background-image: url("../images/bg1.jpg");
+        }
+        &:nth-of-type(2){
+          background-image: url("../images/bg2.jpg");
+        }
+        &:nth-of-type(3){
+          background-image: url("../images/bg3.jpg");
+        }
+        &:nth-of-type(4){
+          background-image: url("../images/bg4.jpg");
+        }
+        &:nth-of-type(5){
+          background-image: url("../images/bg5.jpg");
+        }
+        .innerContent{
+          padding: 0.4rem 0px;
+          height: 100%;
+          box-sizing: border-box;
+          color: #ffffff;
+        }
+      }
+      .verticalMenu{
+        display: none;
+      }
+    }
+  }
 }
