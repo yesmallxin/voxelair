@@ -50,12 +50,10 @@ function bindWheel(){
             if (event.deltaY > 0) {
                 iNow >= 1 && toMove(--iNow);
             } else if (event.deltaY < 0) {
-                console.log(iNow);
                 iNow < contentLiLen - 1 && toMove(++iNow);
             }
         },200);
     });
 }
 bindWheel();
-
 
