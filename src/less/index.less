@@ -95,6 +95,7 @@ a{
       flex: 1;
       overflow: hidden;
       background-color: #005D8D;
+      position: relative;
     }
     .contentUl{
       &{
@@ -131,15 +132,14 @@ a{
           position: relative;
         }
       }
-      .verticalMenu{
-        display: none;
-      }
     }
     .swipeUl{
       &{
         width:100%;
         height: 100%;
         position: relative;
+        perspective: 800px;
+        transform-style: preserve-3d;
       }
       li{
         &{
@@ -151,6 +151,7 @@ a{
           display: flex;
           justify-content: center;
           align-items: center;
+          visibility: hidden;
         }
         &:nth-of-type(1){
           background-color: #dc6c5f;
@@ -170,17 +171,266 @@ a{
           font-weight: bold;
           letter-spacing: 6px;
         }
+        &.leftHide{
+          animation:1s homeLeftHide;
+          visibility:hidden;
+        }
         &.leftShow{
           animation:1s homeLeftShow;
           visibility:visible;
           z-index:3;
         }
+        &.rightHide{
+          animation:1s homeRightHide;
+          visibility:hidden;
+        }
+        &.rightShow{
+          animation:1s homeRightShow;
+          visibility:visible;
+          z-index:3;
+        }
       }
     }
-    .homeInner{
-      position: relative;
-      width:100%;
-      height: 100%;
+    .moduleInner{
+      &{
+        position: relative;
+        width:100%;
+        height: 100%;
+      }
+      .commonTitle {
+        color: #009ee0;
+        font-size: 80px;
+        line-height: 0.8;
+        font-weight: bold;
+        letter-spacing: -5px;
+      }
+      .commonText{
+        color: white;
+        line-height: 1.5;
+        font-size: 15px;
+      }
+    }
+    .courseInner{
+      &{
+        display: flex;
+        justify-content: space-between;
+      }
+      .courseContent1{
+        &{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+          padding-left:5%;
+        }
+        .commonText{
+          width:400px;
+          margin-top:0.6rem;
+        }
+      }
+      .courseContent2{
+        &{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .reuseClass(){
+          content: "";
+          position: absolute;
+          width:9px;
+          top:0px;
+          height: 100%;
+          background-image: url("../images/plus_row.png"),url("../images/plus_row.png");
+          background-repeat:no-repeat,no-repeat;
+          background-position: left top,left bottom;
+        }
+        .courseLogoBox{
+          &{
+            display: flex;
+            width:493px;
+            flex-wrap: wrap;
+          }
+          .logoItem{
+            &{
+              width:120px;
+              height: 120px;
+              position: relative;
+              padding: 5px;
+              perspective: 800px;
+            }
+            .bg{
+              span{
+                &{
+                  position: absolute;
+                  width:9px;
+                  height: 9px;
+                }
+                &:nth-of-type(1){
+                  left: 0px;
+                  top: 0px;
+                }
+                &:nth-of-type(2){
+                  right: 0px;
+                  top: 0px;
+                }
+                &:nth-of-type(3){
+                  left: 0px;
+                  bottom: 0px;
+                }
+                &:nth-of-type(4){
+                  right: 0px;
+                  bottom: 0px;
+                }
+                &.bg{
+                  background: url("../images/plus_row.png") no-repeat 0px 0px;
+                  background-size:100% 100%;
+                }
+              }
+            }
+            .baClass(){
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              width:100%;
+              height: 100%;
+              left: 0px;
+              top:0px;
+              box-sizing: border-box;
+              padding: 5px;
+              backface-visibility: hidden;
+              transition: 0.5s;
+            }
+            .courseBefore{
+              &{
+                .baClass();
+              }
+              image{
+                display: block;
+                width:auto;
+                height: auto;
+              }
+            }
+            .courseAfter{
+              &{
+                .baClass();
+                background: #009ee0;
+                background-clip: content-box;
+                color: white;
+                transform: rotateY(-180deg);
+              }
+              p{
+
+              }
+            }
+            &:hover{
+              .courseBefore{
+                transform:rotateY(180deg);
+              }
+              .courseAfter{
+                transform:rotateY(0deg);
+              }
+            }
+          }
+        }
+      }
+    }
+    .worksInner{
+      .worksContent1{
+        &{
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+        }
+        .imgWrap{
+          &{
+            margin-top:0.6rem;
+            position: relative;
+          }
+          .imgList{
+            &{
+              display: flex;
+            }
+            .imgItem{
+              &{
+                position: relative;
+                overflow: hidden;
+              }
+              &:not(:first-child){
+                margin-left:2px;
+              }
+              img{
+                transition:0.5s;
+              }
+              .text{
+                &{
+                  position: absolute;
+                  left: 0px;
+                  top: 0px;
+                  width:100%;
+                  height: 100%;
+                  background:rgba(25,25,25,0.8);
+                  opacity: 0;
+                  transition:0.5s opacity;
+                  box-sizing: border-box;
+                  padding: 15px;
+                }
+              }
+              &:hover{
+                img{
+                  transform: scale(1.5) rotate(20deg);
+                }
+                .text{
+                  &{
+                    opacity: 1;
+                  }
+                }
+              }
+              .icon{
+                &{
+                  position: absolute;
+                  width:32px;
+                  height: 34px;
+                  left: 50%;
+                  top: 50%;
+                  margin:-17px 0px 0px -16px;
+                  background:url("../images/zoomico.png") no-repeat 0px 0px;
+                  transition: 0.5s;
+                  cursor: pointer;
+                }
+                &:hover{
+                  background-position:0 -36px;
+                }
+              }
+            }
+          }
+          .robotBox{
+            position:absolute;
+            width:167px;
+            height: 191px;
+            background: url("../images/robot.png") no-repeat 0px 0px;
+            right: 0px;
+            bottom: 118px;
+            animation: 10s linear infinite worksMove;
+          }
+        }
+      }
+    }
+    .aboutInner{
+      .aboutContent1{
+        &{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+          padding-left:5%;
+        }
+        .commonText{
+          width:400px;
+          margin-top:0.6rem;
+        }
+      }
     }
     .swipeNav{
       &{
@@ -189,7 +439,7 @@ a{
         bottom: 8px;
         width:100%;
         display: flex;
-        z-index: 2;
+        z-index: 4;
         justify-content: center;
       }
       li{
@@ -206,6 +456,34 @@ a{
         }
         &:not(:first-child){
           margin-left:5px;
+        }
+      }
+    }
+    .verticalMenu{
+      &{
+        position: absolute;
+        height: 100%;
+        right: 20px;
+        top:0px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        justify-content: center;
+      }
+      li{
+        &{
+          width:10px;
+          height:10px;
+          border: 1px white solid;
+          cursor: pointer;
+          border-radius:50%;
+        }
+        &:not(:first-child){
+          margin-top:10px;
+        }
+        &.active{
+          background-color: #fff;
+          cursor: default;
         }
       }
     }
@@ -231,4 +509,12 @@ a{
   0%{ transform:translateZ(0px); visibility:visible;}
   40%{ transform:translate(40%,0) scale(0.8) rotateY(-20deg);}
   100%{ transform:translateZ(-200px);}
+}
+@keyframes worksMove{
+  0%{
+    transform:translateX(0px) rotateY(0deg);
+  }
+  49.9%{transform:translateX(-450px) rotateY(0deg);}
+  50%{ transform:translateX(-450px) rotateY(180deg);}
+  100%{ transform:rotateY(180deg) translateX(0px);}
 }
