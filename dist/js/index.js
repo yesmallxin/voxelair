@@ -157,9 +157,8 @@ function courseContent() {
         let spanList=bgDiv.querySelectorAll('span');
         if (index / 3 > 1) {
             item.style.marginTop="-9px";
-            spanList.forEach((item, index)=>{
-                index>=2 && item.classList.add('bg');
-            });
+            spanList[3].classList.add('bg');
+            index % 4 == 0 && spanList[2].classList.add('bg');
         }else{
             spanList.forEach((item, index)=>{
                 item.classList.add('bg');
