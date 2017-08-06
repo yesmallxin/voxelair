@@ -498,6 +498,51 @@ a{
         width:auto;
       }
     }
+    .teamInner{
+      &{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .teamContent1{
+        &{
+          display: flex;
+          justify-content: space-between;
+          padding: 0px 50px;
+        }
+        .commonText{
+          width:400px;
+        }
+      }
+      .teamContent2{
+        &{
+          margin-top:0.1rem;
+          position: relative;
+          width:944px;
+          margin:0px auto;
+          overflow: hidden;
+        }
+        .teamUl{
+          &{
+            height: 448px;
+            background-size:100% 100%;
+            display: flex;
+          }
+          li{
+            flex: 1;
+            height: 100%;
+            background: url("../images/team.png") no-repeat;
+            transition: 1s;
+            cursor: pointer;
+          }
+        }
+        .teamCanvas{
+          position: absolute;
+          bottom: 80px;
+          left: -118px;
+        }
+      }
+    }
     .swipeNav{
       &{
         position: absolute;

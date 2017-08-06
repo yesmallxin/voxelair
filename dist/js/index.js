@@ -51,7 +51,7 @@ function toMove(index) {
     swipeFn(index);
     iNow=index;
 }
-toMove(4);
+toMove(0);
 
 
 function swipeFn(index) {
@@ -226,3 +226,94 @@ function aboutContent() {
     });
 }
 aboutContent();
+
+function teamContent() {
+    let teamContent2=document.querySelector('#teamContent2');
+    let teamUl=document.querySelector('#teamUl');
+    teamUl.innerHTML=`${'<li></li>'.repeat(8)}`;
+    let liList=teamUl.querySelectorAll('li');
+    liList.forEach((item,index)=>{
+        item.style.backgroundPosition=`${-118*index}px`;
+        item.addEventListener('mouseenter',function () {
+            liList.forEach((item, index)=>{
+                item.style.opacity=0.3;
+            });
+            this.style.opacity=1;
+            canvasAni(index);
+        });
+    });
+    teamContent2.addEventListener('mouseleave',function (event) {
+        liList.forEach((item, index)=>{
+            item.style.opacity=1;
+        });
+        cancelCanvas();
+    });
+
+    let teamCanvas=document.querySelector('#teamCanvas');
+    let ballArr = [];
+    let context=teamCanvas.getContext('2d');
+    let drawRequest=null;
+    function canvasAni(index) {
+        cancelCanvas();
+        drawRequest=requestAnimationFrame(drawCavas);
+        teamCanvas.style.left = index*118+'px';
+    }
+    let pushBall_throttle=throttle(200,pushBall);
+    function drawCavas() {
+        pushBall_throttle();
+        let {width,height}=teamCanvas;
+        context.clearRect(0,0,width,height);
+        ballArr.forEach((item,index)=>{
+            item.moveStep();
+            item.paint();
+            ballArr=ballArr.filter((item, index)=>{
+                return item.y>=50;
+            });
+        });
+        drawRequest=requestAnimationFrame(drawCavas);
+    }
+    function cancelCanvas() {
+        cancelAnimationFrame(drawRequest);
+        teamCanvas.style.left = '-118px';
+        drawRequest=null;
+    }
+    function pushBall() {
+        var num=createRandomIntNum(2,2);
+        let newBall=null;
+        for (let i=0;i<num;i++){
+            newBall=new CreateBall();
+            ballArr.push(newBall);
+        }
+    }
+
+    class CreateBall{
+        constructor(){
+            let width=teamCanvas.width;
+            this.startX=createRandomIntNum(width/2,width/4);
+            this.startY=teamCanvas.height;
+            this.r=createRandomIntNum(6,2);
+            // this.fillColor=`rgba(${createRandomIntNum(255)},${createRandomIntNum(255)},${createRandomIntNum(255)},${createRandomNum(0.5,0.5).toFixed(1)})`;
+            this.fillColor=`rgba(${createRandomIntNum(255)},${createRandomIntNum(255)},${createRandomIntNum(255)},1)`;
+            this.num=createRandomIntNum(360);
+            this.step=createRandomIntNum(20,10);
+            this.x=this.startX;
+            this.y=this.startY;
+        }
+        paint(){
+            context.fillStyle = this.fillColor;
+            context.beginPath();
+            context.moveTo(this.x,this.y);
+            context.arc(this.x,this.y,this.r,0,2*Math.PI);
+            context.closePath();
+            context.fill();
+        }
+        moveStep(){
+            let num=this.num+=5;
+            let step=this.step;
+            this.x = this.startX - Math.sin(num*Math.PI/180).toFixed(2)*step;
+            this.y = this.startY - num*step*0.025;
+        }
+    }
+}
+
+teamContent();
