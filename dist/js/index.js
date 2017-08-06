@@ -51,7 +51,7 @@ function toMove(index) {
     swipeFn(index);
     iNow=index;
 }
-toMove(3);
+toMove(4);
 
 
 function swipeFn(index) {
@@ -172,3 +172,58 @@ function courseContent() {
     });
 }
 courseContent();
+
+function aboutContent() {
+    let aboutInner=document.querySelector('#aboutInner');
+    let aboutImgList=aboutInner.querySelectorAll('.aboutImg');
+    aboutImgList.forEach((item,index)=>{
+        let ul=item.querySelector('.aboutImgUl');
+        let span=item.querySelector('.aboutImgBg');
+        span.style.backgroundImage=`url(../images/${span.dataset.src})`;
+        span.style.transform="scale(1.5)";
+        let w=ul.offsetWidth;
+        let h=ul.offsetHeight;
+        ul.innerHTML=`${'<li></li>'.repeat(4)}`;
+        let liList=ul.querySelectorAll('li');
+
+        let fromArr=['0,-100%','200%,0','-100%,100%','100%,200%'];
+        liList.forEach(function (item,index) {
+            item.style.width=w/2+'px';
+            item.style.height=h/2+'px';
+            item.style.backgroundImage=`url(../images/${ul.dataset.src})`;
+            let toPos={
+                left:0,
+                top:0
+            }
+            let fromPosArr=fromArr[index].split(',');
+            let fromPos={
+                left:fromPosArr[0],
+                top:fromPosArr[1]
+            }
+            if (index %2 != 0){
+                toPos.left="100%";
+            }
+            if (index>=2){
+                toPos.top="100%";
+            }
+            item.style.backgroundPosition=`${toPos.left} ${toPos.top}`;
+            item.dataset.toPos=JSON.stringify(toPos);
+            item.dataset.fromPos=JSON.stringify(fromPos);
+        });
+        ul.addEventListener('mouseenter',function () {
+            liList.forEach(function (item,index) {
+                let fromPos=JSON.parse(item.dataset.fromPos);
+                item.style.backgroundPosition=`${fromPos.left} ${fromPos.top}`;
+            });
+            span.style.transform="scale(1)";
+        });
+        ul.addEventListener('mouseleave',function () {
+            liList.forEach(function (item,index) {
+                let toPos=JSON.parse(item.dataset.toPos);
+                item.style.backgroundPosition=`${toPos.left} ${toPos.top}`;
+            });
+            span.style.transform="scale(1.5)";
+        });
+    });
+}
+aboutContent();
